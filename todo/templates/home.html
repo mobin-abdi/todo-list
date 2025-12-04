@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نت کپی - مرجع قالب و اسکریپت فارسی </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <style>
+        body {
+            font-family: "Vazir", sans-serif;
+            direction: rtl;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #185adb 50%, #cd113b 50%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background-color: #fff;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* فرم */
+        .todo-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .todo-form input,
+        .todo-form select {
+            padding: 12px;
+            font-size: 14px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        .todo-form button {
+            padding: 12px;
+            background-color: #185adb;
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .todo-form button:hover {
+            background-color: #0f3ea0;
+        }
+
+        /* لیست تسک‌ها */
+        .todo-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .todo-list li {
+            background-color: #f5f5f5;
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            word-break: break-word;
+        }
+
+        .todo-info {
+            flex: 1 1 70%;
+        }
+
+        .todo-info strong {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .todo-info span {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 4px;
+        }
+
+        .todo-info em {
+            font-size: 12px;
+            color: #888;
+        }
+
+        /* آیکون‌ها */
+        .todo-actions {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .todo-actions i {
+            cursor: pointer;
+            font-size: 18px;
+            transition: transform 0.2s;
+        }
+
+        .todo-actions i:hover {
+            transform: scale(1.2);
+        }
+
+        .todo-actions i.fa-check {
+            color: green;
+        }
+
+        .todo-actions i.fa-trash {
+            color: red;
+        }
+
+        /* ریسپانسیو */
+        @media (max-width: 480px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+
+            .todo-form input,
+            .todo-form select,
+            .todo-form button {
+                font-size: 13px;
+                padding: 10px;
+            }
+
+            .todo-info strong {
+                font-size: 15px;
+            }
+
+            .todo-info span {
+                font-size: 13px;
+            }
+
+            .todo-info em {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <form method="POST" class="todo-form">
+            <input type="text" name="name" placeholder="عنوان تسک" required>
+            <input type="text" name="context" placeholder="توضیحات">
+            <select name="periority">
+                <option value="L">Low</option>
+                <option value="M" selected>Medium</option>
+                <option value="H">High</option>
+            </select>
+            <button type="submit">اضافه کردن</button>
+        </form>
+
+        <ul class="todo-list">
+            {% for todo in todos %}
+            <li>
+                <div class="todo-info">
+                    <strong>{{ todo.name }}</strong>
+                    <span>{{ todo.context }}</span>
+                    <em>اولویت: {{ todo.get_periority_display }}</em>
+                </div>
+                <div class="todo-actions">
+                    <a href="{% url 'delete_todo' todo.id %}" class="delete"><i class="fas fa-trash"></i></a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</body>
+
+</html>
