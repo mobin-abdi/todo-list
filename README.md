@@ -13,7 +13,7 @@ python -m venv todo
 
 cd todo
 
-git clone <>
+git clone https://github.com/mobin-abdi/todo-list.git
 
 pip install -r requirements.txt
 
